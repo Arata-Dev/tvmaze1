@@ -9,8 +9,7 @@ self.addEventListener('install', function(event) {
         'index.html',
         'style.css',
         'apiexample.js',
-        'icons/android-launchericon-48-48.png',
-        'icons/icon512_maskable'
+        'icons/android-launchericon-48-48.png'
       ]);
     })
   );
