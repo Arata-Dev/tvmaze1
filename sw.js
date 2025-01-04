@@ -1,10 +1,11 @@
-const version = 'v123';  // change this everytime you update the service worker
+const version = 'v2';  // change this everytime you update the service worker
                           // to force the browser to also update it.
 
 self.addEventListener('install', function(event) {
   event.waitUntil(
     caches.open('my-cache').then(function(cache) {
       return cache.addAll([
+        '/',
         'index.html',
         'style.css',
         'apiexample.js'
