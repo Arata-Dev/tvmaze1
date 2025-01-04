@@ -8,8 +8,7 @@ self.addEventListener('install', function(event) {
         '/',
         'index.html',
         'style.css',
-        'apiexample.js',
-        'icons/android-launchericon-48-48.png'
+        'apiexample.js'
       ]);
     })
   );
