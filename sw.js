@@ -1,4 +1,4 @@
-const version = 'v15';  // change this everytime you update the service worker
+const version = 'v16';  // change this everytime you update the service worker
                           // to force the browser to also update it.
 
 // Define cache names
@@ -29,13 +29,8 @@ self.addEventListener('install', function(event) {
 self.addEventListener('fetch', function(event) {
   event.respondWith(
     caches.match(event.request).then(function(response) {
-      try {
         return response || fetch(event.request);
-      }
-      catch (error) {
         console.log("The app needs to be online to perform that action.");
-      }
-      
     })
   );
 });
