@@ -81,7 +81,6 @@ self.addEventListener('fetch', event => {
 });
 
 
-console.log("Testing");
 
 // new code
 self.addEventListener('online', handleConnection);
