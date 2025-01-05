@@ -1,4 +1,4 @@
-const version = 'v16';  // change this everytime you update the service worker
+const version = 'v17';  // change this everytime you update the service worker
                           // to force the browser to also update it.
 
 // Define cache names
@@ -30,7 +30,6 @@ self.addEventListener('fetch', function(event) {
   event.respondWith(
     caches.match(event.request).then(function(response) {
         return response || fetch(event.request);
-        console.log("The app needs to be online to perform that action.");
     })
   );
 });
@@ -76,7 +75,13 @@ self.addEventListener('fetch', event => {
       })
       .catch(() => {
         // If network fetch fails, fallback to cache
-        return caches.match(event.request);
+        try {
+          return caches.match(event.request);
+        }
+        catch (error) {
+          console.log("App needs to be online.");
+        }
+        
       })
   );
 });
