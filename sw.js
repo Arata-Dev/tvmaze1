@@ -1,4 +1,4 @@
-const version = 'v12';  // change this everytime you update the service worker
+const version = 'v13';  // change this everytime you update the service worker
                           // to force the browser to also update it.
 
 // Define cache names
@@ -83,7 +83,7 @@ self.addEventListener('fetch', event => {
 
 
 // new code
-window.addEventListener("load", () => {
+self.addEventListener("load", () => {
   function handleNetworkChange(event) {
     if (navigator.onLine) {
       console.log("online");
@@ -91,6 +91,6 @@ window.addEventListener("load", () => {
       console.log("offline");
     }
   }
-  window.addEventListener("online", handleNetworkChange);
-  window.addEventListener("offline", handleNetworkChange);
+  self.addEventListener("online", handleNetworkChange);
+  self.addEventListener("offline", handleNetworkChange);
 });
