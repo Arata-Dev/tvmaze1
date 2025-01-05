@@ -7,9 +7,9 @@ const DYNAMIC_CACHE_NAME = 'my-app-dynamic-cache-v1';
 
 // Files to cache during install
 const STATIC_ASSETS = [
-  '/index.html',
-  '/style.css',
-  '/apiexample.js'
+  'index.html',
+  'style.css',
+  'apiexample.js'
   // Add other static files you want to cache
 ];
 
@@ -18,7 +18,6 @@ self.addEventListener('install', function(event) {
   event.waitUntil(
     caches.open('my-cache').then(function(cache) {
       return cache.addAll([
-        '/',
         'index.html',
         'style.css',
         'apiexample.js'
