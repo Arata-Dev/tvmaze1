@@ -1,4 +1,4 @@
-const version = 'v8';  // change this everytime you update the service worker
+const version = 'v10';  // change this everytime you update the service worker
                           // to force the browser to also update it.
 
 // Define cache names
@@ -83,8 +83,8 @@ self.addEventListener('fetch', event => {
 
 
 // new code
-window.addEventListener('online', handleConnection);
-window.addEventListener('offline', handleConnection);
+self.addEventListener('online', handleConnection);
+self.addEventListener('offline', handleConnection);
 
 function handleConnection() {
   if (navigator.onLine) {
