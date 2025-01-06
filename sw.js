@@ -1,4 +1,4 @@
-const version = 'v29';  // change this everytime you update the service worker
+const version = 'v30';  // change this everytime you update the service worker
                           // to force the browser to also update it.
 
 // Define cache names
@@ -36,13 +36,14 @@ addEventListener('fetch', function(event) {
         } else {
           return fetch(event.request)     //fetch from internet
             .then(function(res) {
-              return caches.open(CACHE_DYNAMIC_NAME)
+              return caches.open(DYNAMIC_CACHE_NAME)
                 .then(function(cache) {
                   cache.put(event.request.url, res.clone());    //save the response for future
                   return res;   // return the fetched data
                 })
             })
             .catch(function(err) {       // fallback mechanism
+                return caches.open('error-message.html')
                 .then(function(cache) {
                   return cache.match('error-message.html');
                 });
