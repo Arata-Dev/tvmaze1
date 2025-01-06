@@ -1,4 +1,4 @@
-const version = 'v25';  // change this everytime you update the service worker
+const version = 'v26';  // change this everytime you update the service worker
                           // to force the browser to also update it.
 
 // Define cache names
@@ -44,9 +44,10 @@ addEventListener('fetch', function(event) {
                 })
             })
             .catch(function(err) {       // fallback mechanism
-              return caches.open(CACHE_CONTAINING_ERROR_MESSAGES)
+              // return caches.open(CACHE_CONTAINING_ERROR_MESSAGES)
                 .then(function(cache) {
-                  return cache.match('/offline.html');
+                  // return cache.match('/offline.html');
+                  return "App can't do that while offline.";
                 });
             });
         }
