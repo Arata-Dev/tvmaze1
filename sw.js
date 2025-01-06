@@ -1,4 +1,4 @@
-const version = 'v22';  // change this everytime you update the service worker
+const version = 'v23';  // change this everytime you update the service worker
                           // to force the browser to also update it.
 
 // Define cache names
@@ -26,11 +26,29 @@ self.addEventListener('install', function(event) {
   );
 });
 
-self.addEventListener('fetch', function(event) {
+addEventListener('fetch', function(event) {
   event.respondWith(
-    caches.match(event.request).then(function(response) {
-        return response || fetch(event.request);
-    })
+    caches.match(event.request)
+      .then(function(response) {
+        if (response) {
+          return response;     // if valid response is found in cache return it
+        } else {
+          return fetch(event.request)     //fetch from internet
+            .then(function(res) {
+              return caches.open(CACHE_DYNAMIC_NAME)
+                .then(function(cache) {
+                  cache.put(event.request.url, res.clone());    //save the response for future
+                  return res;   // return the fetched data
+                })
+            })
+            .catch(function(err) {       // fallback mechanism
+              return caches.open(CACHE_CONTAINING_ERROR_MESSAGES)
+                .then(function(cache) {
+                  return "App must be online.";
+                });
+            });
+        }
+      })
   );
 });
 
@@ -75,10 +93,7 @@ self.addEventListener('fetch', event => {
       })
       .catch(() => {
         // If network fetch fails, fallback to cache
-        console.log("The app needs to be online to perform that action.");
-        const cachedResponse = "The app needs to be online to perform that action.";
-        return cachedResponse;
-        // return caches.match(event.request);
+        return caches.match(event.request);
       })
   );
 });
